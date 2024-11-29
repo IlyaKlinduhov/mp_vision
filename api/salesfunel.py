@@ -48,7 +48,7 @@ def get_salesfunel(api_key, date_ranges):
                         for card in response_data['data']['cards']:
                             selected_statistics = card['statistics']['selectedPeriod']
                             trimmed_date = date_range['begin'][:10]
-                            key =f'{trimmed_date}{card['nmID']}'
+                            key =f'{trimmed_date}{card["nmID"]}'
                             stat = {
                                 'nmID': card['nmID'],
                                 'date': datetime.strptime(trimmed_date, '%Y-%m-%d').date(),

@@ -106,31 +106,31 @@ def get_adverts_stat(advert_map, api_key, date_array):
             if not success:
                 print(f'Failed to fetch data after {retries} attempts.')
                 continue
-
-            for item in response_data:
-                advert_id = item.get("advertId")
-                for day in item['days']:
-                    for app in day['apps']:
-                        for nm in app['nm']:
-                            nmid = nm['nmId']
-                            nm_date = str(day['date'])[:10]
-                            key = f'{nmid}{advert_id}{nm_date}'
-                            if key in end_map:
-                                stat = end_map[key]
-                                stat['views'] += nm.get('views', 0)
-                                stat['clicks'] += nm.get('clicks', 0)
-                                stat['sum'] += nm.get('sum', 0)
-                            else:
-                                stat = {
-                                    'nmid': nmid,
-                                    'advertId': advert_id,
-                                    'date': datetime.strptime(nm_date, '%Y-%m-%d').date(),
-                                    'views': nm.get('views', 0),
-                                    'clicks': nm.get('clicks', 0),
-                                    'sum': nm.get('sum', 0),
-                                    'type': advert_map.get(advert_id)
-                                }
-                                end_map[key] = stat
+            if response_data:
+                for item in response_data:
+                    advert_id = item.get("advertId")
+                    for day in item['days']:
+                        for app in day['apps']:
+                            for nm in app['nm']:
+                                nmid = nm['nmId']
+                                nm_date = str(day['date'])[:10]
+                                key = f'{nmid}{advert_id}{nm_date}'
+                                if key in end_map:
+                                    stat = end_map[key]
+                                    stat['views'] += nm.get('views', 0)
+                                    stat['clicks'] += nm.get('clicks', 0)
+                                    stat['sum'] += nm.get('sum', 0)
+                                else:
+                                    stat = {
+                                        'nmid': nmid,
+                                        'advertId': advert_id,
+                                        'date': datetime.strptime(nm_date, '%Y-%m-%d').date(),
+                                        'views': nm.get('views', 0),
+                                        'clicks': nm.get('clicks', 0),
+                                        'sum': nm.get('sum', 0),
+                                        'type': advert_map.get(advert_id)
+                                    }   
+                                    end_map[key] = stat
             print(f'Получены данные за {date[0]} - {date[-1]}')
 
 
