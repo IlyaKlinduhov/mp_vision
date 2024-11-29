@@ -5,30 +5,31 @@ async def save_adverts_to_db(advert_map):
     conn = await get_db_connection()
     try:
         async with conn.transaction():
-            for advert in advert_map:
-                if len(advert_map) != 0:
-                    stat = advert_map.get(advert)
+            if len(advert_map) > 0:
+                for advert in advert_map:
+                    if len(advert_map) != 0:
+                        stat = advert_map.get(advert)
 
-                    nmid = await conn.fetchval('SELECT nmid FROM nmids WHERE nmid = $1', str(stat['nmid']))
+                        nmid = await conn.fetchval('SELECT nmid FROM nmids WHERE nmid = $1', str(stat['nmid']))
 
-                    if nmid is None:
-                        continue
+                        if nmid is None:
+                            continue
 
-                    query = '''
-                        INSERT INTO advert (date, advertid, nmid, views, clicks, sum, is_auto) 
-                        VALUES ($1, $2, $3, $4, $5, $6, $7)
-                        ON CONFLICT DO NOTHING 
-                    '''
+                        query = '''
+                            INSERT INTO advert (date, advertid, nmid, views, clicks, sum, is_auto) 
+                            VALUES ($1, $2, $3, $4, $5, $6, $7)
+                            ON CONFLICT DO NOTHING 
+                        '''
 
-                    if stat['type'] == 8:
-                        is_auto = True
-                    else:
-                        is_auto = False
+                        if stat['type'] == 8:
+                            is_auto = True
+                        else:
+                            is_auto = False
 
-                    await conn.execute(
-                        query, stat['date'], str(stat['advertId']), str(stat['nmid']), stat['views'],
-                        stat['clicks'], stat['sum'], is_auto
-                    )
+                        await conn.execute(
+                            query, stat['date'], str(stat['advertId']), str(stat['nmid']), stat['views'],
+                            stat['clicks'], stat['sum'], is_auto
+                        )
     finally:
         await close_db_connection(conn)
 
