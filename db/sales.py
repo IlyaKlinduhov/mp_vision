@@ -13,6 +13,10 @@ async def save_buyouts_to_db(buyouts):
                 if nmid is None:
                     continue
 
+                warehouse = await conn.fetchval('SELECT warehouse FROM warehouses WHERE warehouse = $1', stat['warehouseName'])
+                if warehouse is None:
+                    await conn.execute('INSERT INTO warehouses (warehouse) VALUES($1)', stat['warehouseName'])
+
                 query = '''
                     INSERT INTO sales (date, flag, sku, warehouse, quantity, order_sum, sum_for_pay, nmid) 
                     VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
@@ -36,6 +40,16 @@ async def save_buyouts_to_db(buyouts):
 
                 if stat['warehouseName'] == 'Рязанская обл.':
                     warehouse = 'Рязань (Тюшевское)' 
+
+                if stat['warehouseName'] == 'Виртуальный Комсомольск-на-Амуре':
+                    continue
+                    # warehouse = 'Хабаровск' 
+
+                if stat['warehouseName'] == 'Виртуальный Краснодар':
+                    continue
+                    #warehouse = 'Краснодар' 
+
+                
 
                 await conn.execute(
                     query, stat['date'], flag, str(stat['barcode']), warehouse,

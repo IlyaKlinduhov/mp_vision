@@ -13,6 +13,10 @@ async def save_orders_to_db(orders):
                 if nmid is None:
                     continue
 
+                warehouse = await conn.fetchval('SELECT warehouse FROM warehouses WHERE warehouse = $1', stat['warehouseName'])
+                if warehouse is None:
+                    await conn.execute('INSERT INTO warehouses (warehouse) VALUES($1)', stat['warehouseName'])
+
                 query = '''
                     INSERT INTO orders (date, sku, warehouse, nmid, quantity, sum) 
                     VALUES ($1, $2, $3, $4, $5, $6)
