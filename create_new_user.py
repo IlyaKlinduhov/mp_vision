@@ -17,7 +17,4 @@ async def create_new_user(login, token):
     print(f"Конец работы с {user_id}")
 
 if __name__ == '__main__':
-        asyncio.run(create_new_user('dima_tret', 'eyJhbGciOiJFUzI1NiIsImtpZCI6IjIwMjQwODAxdjEiLCJ0eXAiOiJKV1QifQ.eyJlbnQiOjEsImV4cCI6MTczOTc0NDA1NSwiaWQiOiI4YjZlYmMwZC0wZTZkLTQ4ZjQtYTE0OC0yZTUxMGVjYTQ0MTEiLCJpaWQiOjIxNjYzNDM3LCJvaWQiOjI5NDUzOSwicyI6MTA3Mzc1MDAxNCwic2lkIjoiN2FlZTlkMmItMjJhZS00OGU2LWI0MTktOGRlMDU2NjI1ZDQ3IiwidCI6ZmFsc2UsInVpZCI6MjE2NjM0Mzd9.QOPB0_Poip9xjPwzwoUrnKXzp5Yv3uEEe-1c1xZlSkwhijYYsSU1bSMoH1KvAt3NQGLWRg_2axS_knUyN8mL0Q'))
-
-# if __name__ == '__main__':
-#         asyncio.run(main_first_advert('eyJhbGciOiJFUzI1NiIsImtpZCI6IjIwMjQwODAxdjEiLCJ0eXAiOiJKV1QifQ.eyJlbnQiOjEsImV4cCI6MTczOTc0NDA1NSwiaWQiOiI4YjZlYmMwZC0wZTZkLTQ4ZjQtYTE0OC0yZTUxMGVjYTQ0MTEiLCJpaWQiOjIxNjYzNDM3LCJvaWQiOjI5NDUzOSwicyI6MTA3Mzc1MDAxNCwic2lkIjoiN2FlZTlkMmItMjJhZS00OGU2LWI0MTktOGRlMDU2NjI1ZDQ3IiwidCI6ZmFsc2UsInVpZCI6MjE2NjM0Mzd9.QOPB0_Poip9xjPwzwoUrnKXzp5Yv3uEEe-1c1xZlSkwhijYYsSU1bSMoH1KvAt3NQGLWRg_2axS_knUyN8mL0Q'))
+        asyncio.run(create_new_user('dima_tret', ''))

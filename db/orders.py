@@ -18,8 +18,29 @@ async def save_orders_to_db(orders):
                     VALUES ($1, $2, $3, $4, $5, $6)
                 '''
 
+                warehouse = stat['warehouseName']
+                if stat['warehouseName'] == 'Алексин':
+                    warehouse = 'Тула'
+
+                if stat['warehouseName'] == 'Санкт-Петербург':
+                    warehouse = 'Санкт-Петербург Уткина Заводь'
+
+                if stat['warehouseName'] == 'Екатеринбург':
+                    warehouse = 'Екатеринбург - Испытателей 14г'
+
+                if stat['warehouseName'] == 'Рязанская обл.':
+                    warehouse = 'Рязань (Тюшевское)' 
+
+                if stat['warehouseName'] == 'Виртуальный Комсомольск-на-Амуре':
+                    continue
+                    # warehouse = 'Хабаровск' 
+
+                if stat['warehouseName'] == 'Виртуальный Краснодар':
+                    continue
+                    #warehouse = 'Краснодар' 
+
                 await conn.execute(
-                    query, stat['date'], str(stat['barcode']), stat['warehouseName'],
+                    query, stat['date'], str(stat['barcode']), warehouse,
                     str(stat['nmId']), stat['count'], stat['priceWithDisc']
                 )
     finally:

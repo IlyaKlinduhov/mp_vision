@@ -24,8 +24,21 @@ async def save_buyouts_to_db(buyouts):
                 else:
                     flag = False
 
+                warehouse = stat['warehouseName']
+                if stat['warehouseName'] == 'Алексин':
+                    warehouse = 'Тула'
+
+                if stat['warehouseName'] == 'Санкт-Петербург':
+                    warehouse = 'Санкт-Петербург Уткина Заводь'
+
+                if stat['warehouseName'] == 'Екатеринбург':
+                    warehouse = 'Екатеринбург - Испытателей 14г'
+
+                if stat['warehouseName'] == 'Рязанская обл.':
+                    warehouse = 'Рязань (Тюшевское)' 
+
                 await conn.execute(
-                    query, stat['date'], flag, str(stat['barcode']), stat['warehouseName'],
+                    query, stat['date'], flag, str(stat['barcode']), warehouse,
                     stat['count'], stat['priceWithDisc'], stat['forPay'], str(stat['nmId'])
                 )
     finally:

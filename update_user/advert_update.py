@@ -10,8 +10,8 @@ from datetime import datetime, timedelta
 
 async def main_update_advert(user_id, api_key):
     advert_map = get_all_adverts(api_key)
-    end_map = get_adverts_stat(advert_map, api_key, get_yesterday_date_no_zeros())
     if len(advert_map) > 0:
+        end_map = get_adverts_stat(advert_map, api_key, get_yesterday_date_no_zeros())
         await delete_yesterday_adverts(user_id)
         await save_adverts_to_db(end_map)
     else:
