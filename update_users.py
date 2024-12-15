@@ -55,6 +55,11 @@ async def update_all_users():
         finally:
             pass
 
+        try:
+            await update_stocks_for_user(user['user_id'], user['token'])
+        finally:
+            pass
+
         print(f"Конец работы с user {user['user_id']}")
 
 

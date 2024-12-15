@@ -5,7 +5,7 @@ async def save_adverts_to_db(advert_map):
     conn = await get_db_connection()
     try:
         async with conn.transaction():
-            if len(advert_map) > 0:
+            if advert_map is not None:
                 for advert in advert_map:
                     if len(advert_map) != 0:
                         stat = advert_map.get(advert)
